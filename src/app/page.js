@@ -22,7 +22,7 @@ export default function Home() {
 
   const images = [
     "/artista3.jpeg",
-    "/artista1.jpeg",
+    "/artista1.jpeg", 
 
     "/artista4.jpeg",
     "/artista5.jpeg",
