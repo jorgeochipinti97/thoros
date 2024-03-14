@@ -29,7 +29,7 @@ export default function Home() {
     "/artista2.jpeg",
     "/artista6.jpeg",
     "/artista7.jpeg",
-    "/artista8.jpeg",
+
     "/artista9.jpeg",
     "/artista10.jpeg",
   ];
