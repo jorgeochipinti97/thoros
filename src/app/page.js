@@ -89,7 +89,7 @@ export default function Home() {
         </div>
       </div>
       <div className="mt-40 hidden md:block  ">
-        <BackgroundVideo srcFile={"/video.MOV"}>
+        <BackgroundVideo srcFile={"https://res.cloudinary.com/djvid3urc/video/upload/v1710402637/hd0c9s171mm83vcd3ipn.mov"}>
           <div className="grid grid-cols-3 w-[100vw] ">
             <div className="flex flex-col ">
               <p
@@ -130,7 +130,7 @@ export default function Home() {
         </BackgroundVideo>
       </div>
       <div className=" block md:hidden  ">
-        <BackgroundVideo srcFile={"/videovertical.MOV"}>
+        <BackgroundVideo srcFile={"https://res.cloudinary.com/djvid3urc/video/upload/v1710402649/d5dk6vhjhbjgecpcxud3.mov"}>
           <div className="flex flex-col justify-between h-[80vh] w-[100vw] ">
             <div className="flex flex-col ">
               <p
