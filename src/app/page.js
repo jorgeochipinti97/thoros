@@ -1,113 +1,257 @@
-import Image from 'next/image'
+"use client";
+import { ParallaxScroll } from "@/components/parallax-scroll";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { BackgroundVideo } from "@/components/video";
+import Image from "next/image";
+import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
+import { useToast } from "@/components/ui/use-toast";
+import { useEffect } from "react";
+import gsap, { Power1 } from "gsap";
+import axios from "axios";
+import { useForm } from "react-hook-form";
 
 export default function Home() {
+  const { toast } = useToast();
+  const {
+    register,
+    handleSubmit,reset,
+    formState: { errors },
+  } = useForm();
+
+  const images = [
+    "/artista3.jpeg",
+    "/artista1.jpeg",
+
+    "/artista4.jpeg",
+    "/artista5.jpeg",
+    "/artista2.jpeg",
+    "/artista6.jpeg",
+    "/artista7.jpeg",
+    "/artista8.jpeg",
+    "/artista9.jpeg",
+  ];
+  const images2 = [
+    "/exterior.jpeg",
+    "/exterior2.jpeg",
+    "/exterior3.jpg",
+    "/exterior4.jpeg",
+    "/exterior5.jpeg",
+    "/exterior6.jpeg",
+  ];
+
+  useEffect(() => {
+    gsap.to(".title_", {
+      opacity: 1,
+      delay: 0.2,
+      ease: Power1.easeIn,
+    });
+    gsap.to(".subtitle_", {
+      opacity: 1,
+      delay: 0.5,
+      ease: Power1.easeIn,
+    });
+    gsap.to(".parallax_", {
+      opacity: 1,
+      delay: 0.8,
+      ease: Power1.easeIn,
+    });
+  }, []);
+
+  const onSubmit = async (data) => {
+    toast({
+      title: "Lo siento. No hay cupos disponibles",
+      description: "Te tendremos en cuenta para las próximas experiencias.",
+    });
+    const response = await axios.post("/api/waitlist", data);
+    console.log(response.data.data);
+    reset()
+  };
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
+    <div className="min-h-screen py-10 bg-black">
+      <div className="flex  justify-center flex-col items-center mt-40">
+        <p
+          style={{ opacity: 0.6 }}
+          className="font-bold title_ text-5xl text-center md:text-7xl text-white font-geist tracking-tighter uppercase title"
+        >
+          Viví la experiencia.
         </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+        <p
+          style={{ opacity: 0.3 }}
+          className="text-center subtitle_ font-xs mb-10 font-geist text-white mt-5 md:mb-40 font-bold"
+        >
+          Una experiencia inolvidable para artistas, productores y músicos
+        </p>
+        <div style={{ opacity: 0.2 }} className="parallax_">
+          <ParallaxScroll images={images} />
         </div>
       </div>
-
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="mt-40 hidden md:block  ">
+        <BackgroundVideo srcFile={"/video.MOV"}>
+          <div className="grid grid-cols-3 w-[100vw] ">
+            <div className="flex flex-col ">
+              <p
+                className=" text-7xl  mt-10  font-geist  font-bold tracking-tighter text-gray-100"
+                style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+              >
+                ¿Quienes somos?
+              </p>
+              <div className="flex justify-center">
+                <p
+                  className="text-md  font-semibold w-8/12 font-geist text-center mt-5   tracking-tighter text-md text-gray-200"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  SOMOS UNA COMPANIA QUE HACE DE TU PROYECTO UNA EXPERIENCIA.
+                </p>
+              </div>
+            </div>
+            <div />
+            <div className="w-full ">
+              <div className="flex justify-center">
+                <p
+                  className=" text-7xl text-center mt-10 font-geist  font-bold  xl:w-9/12 tracking-tighter text-gray-100"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  ¿Qué hacemos?
+                </p>
+              </div>
+              <div className="flex justify-center">
+                <p
+                  className="text-md  w-8/12  font-semibold font-geist  text-center mt-5   tracking-tighter text-md text-gray-200"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  NOS ENCARGAMOS DE CREAR ALGO ÚNICO PARA PROYECTOS ÚNICOS.
+                </p>
+              </div>
+            </div>
+          </div>
+        </BackgroundVideo>
       </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
+      <div className=" block md:hidden  ">
+        <BackgroundVideo srcFile={"/videovertical.MOV"}>
+          <div className="flex flex-col justify-between h-[80vh] w-[100vw] ">
+            <div className="flex flex-col ">
+              <p
+                className="text-4xl  mt-10  font-geist  font-bold tracking-tighter text-gray-100"
+                style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+              >
+                ¿Quienes somos?
+              </p>
+              <div className="flex justify-center">
+                <p
+                  className="text-md  font-semibold w-8/12 font-geist text-center mt-5   tracking-tighter text-md text-gray-200"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  SOMOS UNA COMPANIA QUE HACE DE TU PROYECTO UNA EXPERIENCIA.
+                </p>
+              </div>
+            </div>
+            <div />
+            <div className="w-full ">
+              <div className="flex justify-center">
+                <p
+                  className="text-4xl text-center mt-10 font-geist  font-bold  xl:w-9/12 tracking-tighter text-gray-100"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  ¿Qué hacemos?
+                </p>
+              </div>
+              <div className="flex justify-center">
+                <p
+                  className="text-md  w-8/12  font-semibold font-geist  text-center mt-5   tracking-tighter text-md text-gray-200"
+                  style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+                >
+                  NOS ENCARGAMOS DE CREAR ALGO ÚNICO PARA PROYECTOS ÚNICOS.
+                </p>
+              </div>
+            </div>
+          </div>
+        </BackgroundVideo>
       </div>
-    </main>
-  )
+      <div className="w-screem flex flex-col items-center justify-center min-h-screen">
+        <p
+          className="text-4xl md:text-7xl uppercase font-extrabold text-white text-center relative mt-20    font-geist "
+          style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.5) " }}
+        >
+          Proxima experiencia
+        </p>
+
+        <span className="flex items-end text-2xl text-center md:text-4xl text-gray-100 mt-5 mb-20 font-geist tracking-tighter font-semibold">
+          26 y 27 de Marzo, Argentina
+        </span>
+        <img src="/logo.jpg" className="w-12/12 md:w-3/12" />
+
+        <ParallaxScroll images={images2} />
+
+        <div className="flex justify-center mt-20 ">
+          <span className="flex items-end text-4xl text-gray-100 font-geist tracking-tighter font-semibold">
+            ¡No te quedes afuera!
+          </span>
+        </div>
+        <div className="flex justify-center w-screen">
+          <form
+            className="border  p-5 rounded-xl w-10/12 md:w-3/12  mt-5"
+            onSubmit={handleSubmit(onSubmit)}
+          >
+            <div>
+              <Label className="font-geist font-bold text-gray-100">
+                Nombre Completo
+              </Label>
+              <Input
+                {...register("nombreCompleto", { required: true })}
+                className="inputStyles"
+              />
+            </div>
+            <div className="mt-5">
+              <Label className="font-geist font-bold text-gray-100">
+                Email
+              </Label>
+              <Input
+                {...register("email", { required: true })}
+                className="inputStyles"
+              />
+            </div>
+            <div className="mt-5">
+              <Label className="font-geist font-bold text-gray-100">
+                Celular
+              </Label>
+              <Input
+                {...register("celular", { required: true })}
+                className="inputStyles"
+              />
+            </div>
+            <div className="mt-5">
+              <Label className="font-geist font-bold text-gray-100">
+                Instagram
+              </Label>
+              <Input {...register("instagram")} className="inputStyles" />
+            </div>
+
+            <Button variant="outline" className="mt-5 " type="submity">
+              Enviar
+            </Button>
+          </form>
+        </div>
+      </div>
+      {/* <div className="grid grid-cols-3 mt-40">
+        <div className="flex justify-center">
+          <div
+            className="h-full w-10/12  p-10
+         rounded-xl"
+          >
+            <p
+              className="text-3xl text-center mt-5 font-bold tracking-tighter text-gray-100"
+              style={{ textShadow: "1px 1px 10px rgba(0,0,0,0.9) " }}
+            >
+              Talleres Musicales
+            </p>
+            <div className="flex justify-center w-full">
+            </div>
+          </div>
+        </div>
+      </div> */}
+    </div>
+  );
 }
