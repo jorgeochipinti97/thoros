@@ -37,6 +37,7 @@ export default function Home() {
     "/artista12.jpg",
     "/artista13.jpg",
     "/artista14.jpg",
+    "/artista15.jpeg",
 
   ];
   const images2 = [
